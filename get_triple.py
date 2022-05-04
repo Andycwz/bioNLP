@@ -341,9 +341,31 @@ def extract_triples(text):
     # TRIPLES = rank_by_degree(filtered_triples)
     return filtered_triples
 
+  def filiter(triples):#过滤器，筛选出含有关键词drought和gene的三元组
+    keywords=["drought","gene"]
+    m=0
+    templist=[]
+    for i in triples:
+        temp=i[0].split(" ")
+        for j in temp:
+            if j in keywords:
+                m = m + 1
+                print(i)
+                templist.append(i)
+    print(m)
+    return templist
+
+  def write_to_sif(templist):
+    file=open("D:/Desktop/nlp课程/graph.sif", 'a')
+    for i in templist:
+        s=i[0]
+        r=i[1]
+        o=i[2]
+        file.write(s+'\t'+r+'\t'+o+'\n')
+    file.close()
+
 def process_all():
     text = open("D:/NLP/temp_core.txt", 'r').read()
-
     triples = extract_triples(text)
     print("\n\n===============the result=============\n\n")
     print(triples)
